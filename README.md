@@ -1,1 +1,1 @@
-# lukutex-api
+# lukutex-airdrop-api
