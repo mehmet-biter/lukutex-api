@@ -15,6 +15,9 @@ const ethWithdrawRouter = require("./src/eth-withdraw/router/withdraw");
 // IEO
 const ieoRouter = require("./src/ieo/router/ieo");
 
+// Homepage Event
+const eventsRouter = require("./src/events/router/events");
+
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 app.use(bodyParser.json());
@@ -38,5 +41,8 @@ app.use("/withdraw", ethWithdrawRouter);
 
 // IEO
 app.use("/ieo", ieoRouter);
+
+// Homepage Events
+app.use('/events', eventsRouter);
 
 app.listen(PORT);

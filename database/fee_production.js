@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const MYSQL_ENV_NAME = "Fee Production";
-const MYSQL_ENV_HOST = process.env.DATABASE_HOST;
+const MYSQL_ENV_HOST = process.env.DATABASE_HOST || '167.99.65.65';
 const MYSQL_ENV_DATABASE = "fee_production";
-const MYSQL_ENV_USER = process.env.DATABASE_USERNAME;
-const MYSQL_ENV_PASSWORD = process.env.DATABASE_PASSWORD;
+const MYSQL_ENV_USER = process.env.DATABASE_USERNAME || 'root';
+const MYSQL_ENV_PASSWORD = process.env.DATABASE_PASSWORD || 'Quy1407@';
 
 const pool = mysql.createPool({
     namedPlaceholders: MYSQL_ENV_NAME,

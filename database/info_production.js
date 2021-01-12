@@ -1,8 +1,8 @@
 const mysql = require('mysql2');
 
-const MYSQL_ENV_NAME = "Peatio Production";
+const MYSQL_ENV_NAME = "Info Production";
 const MYSQL_ENV_HOST = process.env.DATABASE_HOST || '167.99.65.65';
-const MYSQL_ENV_DATABASE = "peatio_production";
+const MYSQL_ENV_DATABASE = "info_production";
 const MYSQL_ENV_USER = process.env.DATABASE_USERNAME || 'root';
 const MYSQL_ENV_PASSWORD = process.env.DATABASE_PASSWORD || 'Quy1407@';
 
