@@ -2,16 +2,16 @@ const db = require('../../../database/info_production');
 
 module.exports = class BuyHistory {
     constructor(
-        name,
+        event_name,
         description,
-        image,
-        link,
+        image_link,
+        ref_link,
         created_at
     ) {
-        this.name = name;
+        this.event_name = event_name;
         this.description = description;
-        this.image = image;
-        this.link = link;
+        this.image_link = image_link;
+        this.ref_link = ref_link;
         this.created_at = created_at;
     }
 
