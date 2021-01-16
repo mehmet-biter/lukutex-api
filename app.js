@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 const cors = require("cors");
 
 // Airdrop
@@ -17,6 +17,9 @@ const ieoRouter = require("./src/ieo/router/ieo");
 
 // Homepage Event
 const eventsRouter = require("./src/events/router/events");
+
+// Trading Competition
+const tradingCompetitionRouter = require("./src/trading-competition/router/trading-competition");
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
@@ -44,5 +47,8 @@ app.use("/ieo", ieoRouter);
 
 // Homepage Events
 app.use('/events', eventsRouter);
+
+//Trading Competition
+app.use('/trading-competition', tradingCompetitionRouter);
 
 app.listen(PORT);
