@@ -18,6 +18,16 @@ module.exports = class Accounts {
     }
 
     static fetchValidDepositeBetweenDate(start_date, end_date) {
-        return db.execute('SELECT member_id FROM deposits WHERE completed_at BETWEEN ? and ?', [start_date, end_date]);
+        return db.execute(`
+        SELECT 
+            member_id, 
+            currency_id,
+            SUM(amount) as amount,
+            completed_at
+        FROM deposits
+        WHERE
+            aasm_state = 'collected' and
+            completed_at BETWEEN ? and ?
+            GROUP BY member_id, currency_id`, [start_date, end_date]);
     }
 };

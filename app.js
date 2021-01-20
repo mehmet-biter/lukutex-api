@@ -20,7 +20,8 @@ const ieoRouter = require("./src/ieo/router/ieo");
 const eventsRouter = require("./src/events/router/events");
 
 // Trading Competition
-const tradingCompetitionRouter = require("./src/trading-competition/router/trading-competition");
+const competitionsRouter = require("./src/trading-competition/router/competitions");
+const rankingsRouter = require("./src/trading-competition/router/rankings");
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
@@ -51,6 +52,7 @@ app.use("/ieo", ieoRouter);
 app.use('/events', eventsRouter);
 
 //Trading Competition
-app.use('/trading-competition', tradingCompetitionRouter);
+app.use('/competitions', competitionsRouter);
+app.use('/rankings', rankingsRouter);
 
 app.listen(PORT);
