@@ -43,15 +43,19 @@ exports.fetchRankings = async(req, res, next) => {
                 mergedDeposite[index].total = NP.plus(mergedDeposite[index].total, deposite.total);
             }
         });
-        mergedDeposite.map(async(deposite) => {
+
+        // Find uid from member_id and replace
+        const depositesWithUidList = await Promise.all(mergedDeposite.map(async(deposite) => {
             const uid = await MembersModel.getUidByMemberID(deposite.member_id);
             const newDeposite = {
                 uid: uid[0][0].uid,
                 total: deposite.total || 0
             }
             return newDeposite;
-        })
-        const desSortedDeposites = mergedDeposite.sort((prev, next) => next.total - prev.total);
+        }));
+
+        // Sort descrease of total
+        const desSortedDeposites = depositesWithUidList.sort((prev, next) => next.total - prev.total);
         res.status(200).json({
             msg: 'Fetch rankings successfully',
             payload: desSortedDeposites
