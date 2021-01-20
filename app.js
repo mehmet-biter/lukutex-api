@@ -8,6 +8,7 @@ const cors = require("cors");
 const airdropRouter = require("./src/airdrop/router/airdrop");
 const claimRouter = require("./src/airdrop/router/claim");
 const blockListRouter = require("./src/airdrop/router/blockList");
+const distributeRouter = require("./src/airdrop/router/distribute");
 
 // ETH Withdraw
 const ethWithdrawRouter = require("./src/eth-withdraw/router/withdraw");
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 app.use("/airdrop", airdropRouter);
 app.use("/claim", claimRouter);
 app.use("/block", blockListRouter);
+app.use("/distribute", distributeRouter);
 
 // ETH Withdraw
 app.use("/withdraw", ethWithdrawRouter);
