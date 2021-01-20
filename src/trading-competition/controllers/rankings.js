@@ -3,6 +3,7 @@ const NP = require('number-precision');
 NP.enableBoundaryChecking(false);
 
 const DepositesModel = require('../../../models/Deposites');
+const MembersModel = require('../../../models/Members');
 
 exports.fetchRankings = async(req, res, next) => {
     try {
@@ -27,7 +28,7 @@ exports.fetchRankings = async(req, res, next) => {
         const depositeListWithTotal = depositeList.map(deposite => {
             const newDeposite = {
                 member_id: deposite.member_id,
-                total: NP.strip(NP.times(priceOfCurrencies[String(deposite.currency_id).toUpperCase()], deposite.amount))
+                total: NP.strip(NP.times(priceOfCurrencies[String(deposite.currency_id).toUpperCase()] || 0, deposite.amount))
             }
             return newDeposite;
         });
@@ -42,6 +43,14 @@ exports.fetchRankings = async(req, res, next) => {
                 mergedDeposite[index].total = NP.plus(mergedDeposite[index].total, deposite.total);
             }
         });
+        mergedDeposite.map(async(deposite) => {
+            const uid = await MembersModel.getUidByMemberID(deposite.member_id);
+            const newDeposite = {
+                uid: uid[0][0].uid,
+                total: deposite.total || 0
+            }
+            return newDeposite;
+        })
         const desSortedDeposites = mergedDeposite.sort((prev, next) => next.total - prev.total);
         res.status(200).json({
             msg: 'Fetch rankings successfully',
