@@ -19,7 +19,7 @@ module.exports = class Competitions {
         this.end_date = end_date;
     }
 
-    static fetchActiveCompetitions() {
+    static fetchOngoingCompetitions() {
         return db.execute("SELECT * FROM competitions WHERE sysdate() BETWEEN start_date and end_date");
     }
 
