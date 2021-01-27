@@ -30,4 +30,8 @@ module.exports = class Competitions {
         return db.execute("SELECT * FROM competitions WHERE sysdate() > end_date");
     }
 
+    static fetchCompetitionById(competition_id) {
+        return db.execute("SELECT * FROM competitions WHERE id = ?", [competition_id]);
+    }
+
 }

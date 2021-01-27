@@ -155,3 +155,20 @@ exports.fetchEndedCompetitions = async(req, res, next) => {
         })
     }
 }
+
+exports.fetchCompetitionById = async(req, res, next) => {
+    const competition_id = req.params.competition_id;
+    try {
+        const competition = await CompetitionsModel.fetchCompetitionById(competition_id);
+        res.status(200).json({
+            msg: "Fetch competition with id successfully.",
+            payload: competition[0][0]
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({
+            msg: 'Fetch competition with id failed',
+            payload: null
+        })
+    }
+}
