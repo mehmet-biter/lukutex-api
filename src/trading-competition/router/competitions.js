@@ -8,6 +8,6 @@ router.get("/fetch/ongoing", competitionsController.fetchOngoingCompetitions);
 router.get("/fetch/upcoming", competitionsController.fetchUpcomingCompetitions);
 router.get("/fetch/ended", competitionsController.fetchEndedCompetitions);
 
-router.get("/fetch/competition_id", competitionsController.fetchCompetitionById);
+router.get("/fetch/competition_id=:competition_id", competitionsController.fetchCompetitionById);
 
 module.exports = router;
