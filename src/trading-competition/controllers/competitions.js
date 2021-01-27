@@ -9,9 +9,9 @@ const covertMarketID = async(market_id) => {
 
 exports.fetchActiveCompetitions = async(req, res, next) => {
     try {
-        const ongoingCompetitions = await CompetitionsModel.fetchActiveCompetitions();
-        const upcomingCompetitions = await CompetitionsModel.fetchActiveCompetitions();
-        const endedCompetitions = await CompetitionsModel.fetchActiveCompetitions();
+        const ongoingCompetitions = await CompetitionsModel.fetchOngoingCompetitions();
+        const upcomingCompetitions = await CompetitionsModel.fetchUpcomingCompetitions();
+        const endedCompetitions = await CompetitionsModel.fetchEndedCompetitions();
 
         const mappedOngoingCompetitions = await Promise.all(ongoingCompetitions[0].map(async(competition) => {
             const marketIds = competition.market_ids.replace(/ /g, '').split('-');
@@ -69,9 +69,9 @@ exports.fetchActiveCompetitions = async(req, res, next) => {
 }
 
 
-exports.fetchActiveCompetitions = async(req, res, next) => {
+exports.fetchOngoingCompetitions = async(req, res, next) => {
     try {
-        const activeCompetitions = await CompetitionsModel.fetchActiveCompetitions();
+        const activeCompetitions = await CompetitionsModel.fetchOngoingCompetitions();
 
         const mappedActiveCompetitions = await Promise.all(activeCompetitions[0].map(async(competition) => {
             const marketIds = competition.market_ids.replace(/ /g, '').split('-');
