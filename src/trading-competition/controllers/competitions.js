@@ -7,7 +7,7 @@ const covertMarketID = async(market_id) => {
     return Promise.resolve(units[0][0].base_unit + '/' + units[0][0].quote_unit);
 }
 
-exports.fetchActiveCompetitions = async(req, res, next) => {
+exports.fetchAllCompetitions = async(req, res, next) => {
     try {
         const ongoingCompetitions = await CompetitionsModel.fetchOngoingCompetitions();
         const upcomingCompetitions = await CompetitionsModel.fetchUpcomingCompetitions();
