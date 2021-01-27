@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const tradingCompetitionController = require("../controllers/competitions");
+const competitionsController = require("../controllers/competitions");
 
-router.get("/fetch/active", tradingCompetitionController.fetchActiveCompetitions);
-router.get("/fetch/upcoming", tradingCompetitionController.fetchUpcomingCompetitions);
-router.get("/fetch/ended", tradingCompetitionController.fetchEndedCompetitions);
+router.get("/fetch/all", competitionsController.fetchActiveCompetitions);
+// router.get("/fetch/active", competitionsController.fetchActiveCompetitions);
+router.get("/fetch/upcoming", competitionsController.fetchUpcomingCompetitions);
+router.get("/fetch/ended", competitionsController.fetchEndedCompetitions);
+
 module.exports = router;

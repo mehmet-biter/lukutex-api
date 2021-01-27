@@ -21,6 +21,7 @@ const eventsRouter = require("./src/events/router/events");
 
 // Trading Competition
 const competitionsRouter = require("./src/trading-competition/router/competitions");
+const ranksRouter = require("./src/trading-competition/router/ranks");
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
@@ -52,5 +53,6 @@ app.use('/events', eventsRouter);
 
 //Trading Competition
 app.use('/competitions', competitionsRouter);
+app.use('/ranks', ranksRouter);
 
 app.listen(PORT);
