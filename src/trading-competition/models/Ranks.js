@@ -23,8 +23,12 @@ module.exports = class Ranks {
         return db.execute('SELECT member_id FROM ranks WHERE competition_id = ?', [competition_id]);
     }
 
-    static fetchRanks(competition_id, quantity) {
-        return db.execute('SELECT * FROM ranks WHERE competition_id = ? LIMIT ? ORDER BY rank DESC', [competition_id, quantity]);
+    static fetchRanksByCompetitionID(competition_id, quantity) {
+        return db.execute('SELECT * FROM ranks WHERE competition_id = ? ORDER BY rank ASC LIMIT ?', [competition_id, quantity]);
+    }
+
+    static fetchRanksByUid(competiton_id, uid) {
+        return db.execute('SELECT * FROM ranks WHERE competition_id = ? and uid = ?', [competiton_id, uid]);
     }
 
     static updateRank(competition_id, member_id, rank) {
