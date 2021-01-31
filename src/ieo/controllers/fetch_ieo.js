@@ -1,4 +1,5 @@
 const IEOListModel = require('../models/IEO');
+const NP = require('number-precision');
 
 exports.fetchActiveIEO = async(req, res, next) => {
     try {
