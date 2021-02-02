@@ -155,7 +155,7 @@ exports.fetchByIEOID = async(req, res, next) => {
             currency_available: ieo[0][0].currency_available.replace(/ /g, '').split(','),
             social: JSON.parse(ieo[0][0].social),
             bonus: newbonus,
-            remains: NP.strip(ieo[0][0].remains),
+            remains: NP.strip(ieo[0][0].remains).toFixed(0),
             total_ieo: NP.strip(ieo[0][0].total_ieo),
             price: NP.strip(ieo[0][0].price),
             min_buy: NP.strip(ieo[0][0].min_buy)
