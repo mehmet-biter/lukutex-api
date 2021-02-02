@@ -3,6 +3,6 @@ const router = express.Router();
 
 const lunarGameController = require("../controllers/lunar-game");
 
-router.get("/", lunarGameController.fetchBuy);
+router.get("/", lunarGameController.getAward);
 
 module.exports = router;
