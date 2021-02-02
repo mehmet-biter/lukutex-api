@@ -10,7 +10,7 @@ exports.fetchActiveIEO = async(req, res, next) => {
                 ...list,
                 type: 'ongoing',
                 currency_available: list.currency_available.replace(/ /g, '').split(','),
-                remains: NP.strip(list.remains),
+                remains: NP.strip(list.remains).toFixed(0),
                 total_ieo: NP.strip(list.total_ieo),
                 price: NP.strip(list.price),
                 min_buy: NP.strip(list.min_buy)
@@ -21,7 +21,7 @@ exports.fetchActiveIEO = async(req, res, next) => {
                 ...list,
                 type: 'upcoming',
                 currency_available: list.currency_available.replace(/ /g, '').split(','),
-                remains: NP.strip(list.remains),
+                remains: NP.strip(list.remains).toFixed(0),
                 total_ieo: NP.strip(list.total_ieo),
                 price: NP.strip(list.price),
                 min_buy: NP.strip(list.min_buy)
@@ -50,7 +50,7 @@ exports.fetchUpcomingIEO = async(req, res, next) => {
                 ...list,
                 type: 'upcoming',
                 currency_available: list.currency_available.replace(/ /g, '').split(','),
-                remains: NP.strip(list.remains),
+                remains: NP.strip(list.remains).toFixed(0),
                 total_ieo: NP.strip(list.total_ieo),
                 price: NP.strip(list.price),
                 min_buy: NP.strip(list.min_buy)
@@ -78,7 +78,7 @@ exports.fetchOngoingIEO = async(req, res, next) => {
                 ...list,
                 type: 'ongoing',
                 currency_available: list.currency_available.replace(/ /g, '').split(','),
-                remains: NP.strip(list.remains),
+                remains: NP.strip(list.remains).toFixed(0),
                 total_ieo: NP.strip(list.total_ieo),
                 price: NP.strip(list.price),
                 min_buy: NP.strip(list.min_buy)
@@ -106,7 +106,7 @@ exports.fetchEndedIEO = async(req, res, next) => {
                 ...list,
                 type: 'ended',
                 currency_available: list.currency_available.replace(/ /g, '').split(','),
-                remains: NP.strip(list.remains),
+                remains: NP.strip(list.remains).toFixed(0),
                 total_ieo: NP.strip(list.total_ieo),
                 price: NP.strip(list.price),
                 min_buy: NP.strip(list.min_buy)
