@@ -40,13 +40,11 @@ exports.fetchLuckyLots = async(req, res, next) => {
     const member_id = 12;
     const deposites = await DepositesModel.fetchByMemberIdAndDate(member_id, start_date, end_date);
     const deposites_usd = await Promise.all(
-        deposites[0].map(async(deposite) => {
-            const totalUsd = await getPrice(deposite.currency_id);
-            const new_deposite = {
-                ...deposite,
-                total_usdt: NP.times(totalUsd, deposite.amount)
-            }
-            return new_deposite;
+        deposites[0].filter(async(deposite) => {
+            const price = await getPrice(deposite.currency_id);
+            const total_usd = NP.times(price, deposite.amount);
+            if (total_usd >= min_deposite) return true;
+            return false;
         })
     );
     const valid_deposites = deposites_usd.map(deposite => deposite.total_usdt >= min_deposite);
