@@ -17,17 +17,17 @@ module.exports = class Accounts {
         this.completed_at = completed_at;
     }
 
-    static fetchValidDepositeBetweenDate(start_date, end_date) {
+    static fetchByMemberIdAndDate(member_id, start_date, end_date) {
         return db.execute(`
         SELECT 
             member_id, 
             currency_id,
-            SUM(amount) as amount,
+            amount,
             completed_at
         FROM deposits
         WHERE
+            member_id = ?
             aasm_state = 'collected' and
-            completed_at BETWEEN ? and ?
-            GROUP BY member_id, currency_id`, [start_date, end_date]);
+            completed_at BETWEEN ? and ?`, [member_id, start_date, end_date]);
     }
 };

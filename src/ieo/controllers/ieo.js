@@ -61,15 +61,15 @@ const getPrice = async(fsym, tsyms, base_price) => {
         let quote_price = 0;
         switch (String(tsyms).toLowerCase()) {
             case 'kobe':
-                const kobePrice = await axios.get('https://lukutex.com/api/v2/peatio/public/markets/kobeusdt/tickers');
+                const kobePrice = await axios.get('https://www.lukutex.com/api/v2/peatio/public/markets/kobeusdt/tickers');
                 quote_price = Number(kobePrice.data.ticker.last) || 0; // 1 KOBE = x usdt
                 break;
             case 'esc':
-                const escPrice = await axios.get('https://lukutex.com/api/v2/peatio/public/markets/escusdt/tickers');
+                const escPrice = await axios.get('https://wwww.lukutex.com/api/v2/peatio/public/markets/escusdt/tickers');
                 quote_price = Number(escPrice.data.ticker.last) || 0;
                 break;
             case 'swp':
-                const swpPrice = await axios.get('https://lukutex.com/api/v2/peatio/public/markets/swpusdt/tickers');
+                const swpPrice = await axios.get('https://www.lukutex.com/api/v2/peatio/public/markets/swpusdt/tickers');
                 quote_price = Number(swpPrice.data.ticker.last) || 0;
                 break;
             default:

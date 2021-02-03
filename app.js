@@ -24,7 +24,7 @@ const competitionsRouter = require("./src/trading-competition/router/competition
 const ranksRouter = require("./src/trading-competition/router/ranks");
 
 // Lunar Game
-// const lunarGameRouter = require('./src/lunar-game/router/lunar-game');
+const lunarGameRouter = require('./src/lunar-game/router/lunar_game');
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
@@ -57,5 +57,8 @@ app.use('/events', eventsRouter);
 //Trading Competition
 app.use('/competitions', competitionsRouter);
 app.use('/ranks', ranksRouter);
+
+//Lunar Game
+app.use('/lunar-game', lunarGameRouter);
 
 app.listen(PORT);
