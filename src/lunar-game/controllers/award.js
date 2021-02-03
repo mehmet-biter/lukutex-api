@@ -1,26 +1,9 @@
+const LuckyMoneyModel = require('../models/LuckyMoney');
+
 exports.getAward = async(req, res, next) => {
     try {
-        const awards = [{
-                id: 'LK1',
-                award: '5$',
-                quantity: 0
-            },
-            {
-                id: 'LK2',
-                award: '10$',
-                quantity: 2
-            },
-            {
-                id: 'LK3',
-                award: '20$',
-                quantity: 0
-            },
-            {
-                id: 'LK4',
-                award: '40$',
-                quantity: 2
-            }
-        ];
+        const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
+        const awards = awardsData[0];
 
         let random_award = [];
         for (let i = 0; i < 4; i++) {
