@@ -39,24 +39,24 @@ app.use((req, res, next) => {
     next();
 });
 
-// // Airdrop
-// app.use("/airdrop", airdropRouter);
-// app.use("/claim", claimRouter);
-// app.use("/block", blockListRouter);
-// app.use("/distribute", distributeRouter);
+// Airdrop
+app.use("/airdrop", airdropRouter);
+app.use("/claim", claimRouter);
+app.use("/block", blockListRouter);
+app.use("/distribute", distributeRouter);
 
-// // ETH Withdraw
-// app.use("/withdraw", ethWithdrawRouter);
+// ETH Withdraw
+app.use("/withdraw", ethWithdrawRouter);
 
-// // IEO
-// app.use("/ieo", ieoRouter);
+// IEO
+app.use("/ieo", ieoRouter);
 
-// // Homepage Events
-// app.use('/events', eventsRouter);
+// Homepage Events
+app.use('/events', eventsRouter);
 
-// //Trading Competition
-// app.use('/competitions', competitionsRouter);
-// app.use('/ranks', ranksRouter);
+//Trading Competition
+app.use('/competitions', competitionsRouter);
+app.use('/ranks', ranksRouter);
 
 //Lunar Game
 app.use('/lunar-game', lunarGameRouter);
