@@ -7,6 +7,6 @@ const luckyLotsController = require('../controllers/lucky_lots');
 
 router.get("/award/get", awardController.getAward);
 router.get("/luckymoney/fetch", luckyMoneyController.fetchLuckyMoney);
-router.get("/luckylots/fetch/uid:=uid", luckyLotsController.fetchLuckyLots);
+router.get("/luckylots/fetch", luckyLotsController.fetchLuckyLots);
 
 module.exports = router;

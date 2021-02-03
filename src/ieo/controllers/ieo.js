@@ -95,7 +95,6 @@ const getPrice = async(fsym, tsyms, base_price) => {
         console.log(error);
         throw new Error('Can not get price of selected currency.');
     }
-
 }
 
 const getBonus = (quantity, bonus) => {

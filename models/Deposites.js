@@ -23,10 +23,11 @@ module.exports = class Accounts {
             member_id, 
             currency_id,
             amount,
+            txid,
             completed_at
         FROM deposits
         WHERE
-            member_id = ?
+            member_id = ? and
             aasm_state = 'collected' and
             completed_at BETWEEN ? and ?`, [member_id, start_date, end_date]);
     }
