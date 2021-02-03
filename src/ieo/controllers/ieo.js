@@ -59,16 +59,16 @@ const getPrice = async(fsym, tsyms, base_price) => {
     const API_KEY = '25fc5392e29e67321a0bfb9ff465ea0671c5c3b741266b0e04dc79264efb9ee3';
     try {
         let quote_price = 0;
-        switch (String(tsyms).toLowerCase()) {
-            case 'kobe':
+        switch (String(tsyms).toUpperCase()) {
+            case 'KOBE':
                 const kobePrice = await axios.get('https://www.lukutex.com/api/v2/peatio/public/markets/kobeusdt/tickers');
                 quote_price = Number(kobePrice.data.ticker.last) || 0; // 1 KOBE = x usdt
                 break;
-            case 'esc':
+            case 'ESC':
                 const escPrice = await axios.get('https://wwww.lukutex.com/api/v2/peatio/public/markets/escusdt/tickers');
                 quote_price = Number(escPrice.data.ticker.last) || 0;
                 break;
-            case 'swp':
+            case 'SWP':
                 const swpPrice = await axios.get('https://www.lukutex.com/api/v2/peatio/public/markets/swpusdt/tickers');
                 quote_price = Number(swpPrice.data.ticker.last) || 0;
                 break;
@@ -78,12 +78,12 @@ const getPrice = async(fsym, tsyms, base_price) => {
                 break;
         }
 
-        switch (String(tsyms).toLowerCase()) {
-            case 'kobe':
+        switch (String(tsyms).toUpperCase()) {
+            case 'KOBE':
                 return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));
-            case 'esc':
+            case 'ESC':
                 return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));
-            case 'swp':
+            case 'SWP':
                 return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));
             default:
                 return NP.divide(quote_price, NP.divide(1, base_price));
