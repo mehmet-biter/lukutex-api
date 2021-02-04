@@ -41,6 +41,8 @@ exports.fetchLuckyLots = async(req, res, next) => {
     const end_date = '2021-02-05';
     const min_deposite = 30;
 
+    const uid = req.params.uid;
+
     try {
         // do find member_id by uid
         const member = await MembersModel.getMemberID(uid);
