@@ -30,6 +30,7 @@ module.exports = class Accounts {
             member_id = ? and
             (currency_id = 'btc' or currency_id = 'eth' or currency_id = 'usdt') and
             aasm_state = 'collected' and
-            completed_at BETWEEN ? and ?`, [member_id, start_date, end_date]);
+            completed_at BETWEEN ? and ?
+        ORDER BY completed_at ASC LIMIT 3`, [member_id, start_date, end_date]);
     }
 };

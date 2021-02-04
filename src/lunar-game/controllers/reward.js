@@ -17,6 +17,10 @@ exports.reward = async(req, res, next) => {
         if (!lucky_award[0] && lucky_award[0][0]) throw Error('Incorrect Lucky ID');
         if (!lucky_award[0][0].quantity <= 0) throw Error('Out of quantity');
 
+        // Fetch history of user
+        const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
+        if (user_rewards[0].length >= 3) throw Error('User can ')
+
         // plus balance usdt
         await AccountsModel.plusBalance(member[0][0].member_id, 'usdt', lucky_award[0][0].award);
 

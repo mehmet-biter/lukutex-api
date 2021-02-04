@@ -29,4 +29,8 @@ module.exports = class LuckyHistory {
         return db.execute('SELECT id, member_id, txid FROM lucky_history WHERE uid = ?', [member_id]);
     }
 
+    static fetchHistoryByUid(uid) {
+        return db.execute('SELECT id FROM lucky_history WHERE uid = ?', [uid]);
+    }
+
 }
