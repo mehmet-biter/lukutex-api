@@ -59,6 +59,6 @@ app.use('/competitions', competitionsRouter);
 app.use('/ranks', ranksRouter);
 
 //Lunar Game
-app.use('/lunar-game', lunarGameRouter);
+// app.use('/lunar-game', lunarGameRouter);
 
 app.listen(PORT);

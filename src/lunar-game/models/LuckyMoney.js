@@ -15,4 +15,11 @@ module.exports = class LuckyMoney {
         return db.execute('SELECT * FROM lucky_money');
     }
 
+    static getLuckyMoneyById(lucky_id) {
+        return db.execute('SELECT * FROM lucky_money WHERE id = ?', [lucky_id]);
+    }
+
+    static substractQuantity(id) {
+        return db.execute('UPDATE lucky_money SET quantity = quantity - 1 where id = ?', [id])
+    }
 }

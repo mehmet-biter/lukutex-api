@@ -16,6 +16,6 @@ module.exports = class BuyHistory {
     }
 
     static fetch() {
-        return db.execute('SELECT * FROM events order by event_id DESC LIMIT 4;');
+        return db.execute('SELECT * FROM events order by event_id DESC LIMIT 8;');
     }
 };

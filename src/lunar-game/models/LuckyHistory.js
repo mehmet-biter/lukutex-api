@@ -5,11 +5,13 @@ module.exports = class LuckyHistory {
     constructor(
         uid,
         member_id,
+        txid,
         reward,
         created_at
     ) {
         this.uid = uid;
         this.member_id = member_id;
+        this.txid = txid;
         this.reward = reward;
         this.created_at = created_at;
     }
@@ -17,10 +19,14 @@ module.exports = class LuckyHistory {
     save() {
         return db.execute(
             `
-                INSERT INTO lucky_history (uid, member_id, reward, created_at)
-                Values(?, ?, ?, ?)
-            `, [this.uid, this.member_id, this.reward, this.created_at]
+                INSERT INTO lucky_history (uid, member_id, txid, reward, created_at)
+                Values(?, ?, ?, ?, ?)
+            `, [this.uid, this.member_id, this.txid, this.reward, this.created_at]
         )
+    }
+
+    static fetchTxid(member_id) {
+        return db.execute('SELECT id, member_id, txid FROM lucky_history WHERE uid = ?', [member_id]);
     }
 
 }

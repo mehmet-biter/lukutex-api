@@ -1,5 +1,7 @@
 const DepositesModel = require('../../../models/Deposites');
 
+const LuckyHistoryModel = require('../models/LuckyHistory');
+
 const axios = require('axios');
 const NP = require('number-precision');
 
@@ -34,6 +36,7 @@ const getPrice = async(base_currency) => {
 }
 
 exports.fetchLuckyLots = async(req, res, next) => {
+    // do find member_id by uid
     const start_date = '2021-02-02';
     const end_date = '2021-02-05';
     const min_deposite = 30;
@@ -47,7 +50,16 @@ exports.fetchLuckyLots = async(req, res, next) => {
             return false;
         })
     );
-    const valid_deposites = deposites_usd.map(deposite => deposite.total_usdt >= min_deposite);
 
-    console.log(deposites_usd);
+    const lk_history_user = await LuckyHistoryModel.fetchTxid(member_id);
+    const existTxid = lk_history_user[0].map(lk => lk.txid);
+
+    const deposites_txid = deposites_usd.map(des => {
+        return {
+            ...des,
+            used: existTxid.includes(des.txid)
+        }
+    })
+
+    console.log(deposites_txid);
 }
