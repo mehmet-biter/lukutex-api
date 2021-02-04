@@ -79,7 +79,8 @@ exports.fetchLuckyLots = async(req, res, next) => {
         res.status(401).json({
             msg: 'Fetch lots of user failed',
             payload: [],
-            total_join: 0
+            total_join: 0,
+            error: JSON.stringify(error)
         });
     }
 
