@@ -1,4 +1,3 @@
-const { times } = require('number-precision');
 const db = require('../../../database/lunar_game');
 
 module.exports = class LuckyHistory {
@@ -26,7 +25,7 @@ module.exports = class LuckyHistory {
     }
 
     static fetchTxid(member_id) {
-        return db.execute('SELECT id, member_id, txid FROM lucky_history WHERE uid = ?', [member_id]);
+        return db.execute('SELECT id, member_id, txid FROM lucky_history WHERE member_id = ?', [member_id]);
     }
 
     static fetchHistoryByUid(uid) {
