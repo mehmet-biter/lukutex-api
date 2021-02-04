@@ -5,6 +5,7 @@ const LuckyHistoryModel = require('../models/LuckyHistory');
 
 const axios = require('axios');
 const NP = require('number-precision');
+NP.enableBoundaryChecking(false); // default param is true
 
 const getPrice = async(base_currency) => {
     const COMPARE_BASE_API_URL = 'https://min-api.cryptocompare.com/data/price';
@@ -42,13 +43,11 @@ exports.fetchLuckyLots = async(req, res, next) => {
     const min_deposite = 30;
 
     const uid = req.params.uid;
-
     try {
         // do find member_id by uid
         const member = await MembersModel.getMemberID(uid);
         if (!(member[0] && member[0][0])) throw Error('Incorrect UID');
-        const member_id = membe[0][0].member_id;
-
+        const member_id = member[0][0].id;
         const deposites = await DepositesModel.fetchByMemberIdAndDate(member_id, start_date, end_date);
         const deposites_usd = await Promise.all(
             deposites[0].filter(async(deposite) => {
@@ -80,7 +79,7 @@ exports.fetchLuckyLots = async(req, res, next) => {
             msg: 'Fetch lots of user failed',
             payload: [],
             total_join: 0,
-            error: JSON.stringify(error)
+            error: JSON.stringify(error.message)
         });
     }
 
