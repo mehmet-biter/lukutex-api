@@ -45,7 +45,6 @@ exports.fetchLuckyLots = async(req, res, next) => {
         const lk_history_user = await LuckyHistoryModel.fetchTxid(member_id);
         const number_join = lk_history_user[0].length;
         const existTxid = lk_history_user[0].map(lk => lk.txid);
-        console.log(lk_history_user[0]);
         const deposites_txid = deposites_usd.map(des => {
             return {
                 ...des,

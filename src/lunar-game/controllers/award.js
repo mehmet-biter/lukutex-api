@@ -5,12 +5,25 @@ exports.getAward = async(req, res, next) => {
         const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
         const awards = awardsData[0];
 
-        let random_award = [];
-        for (let i = 0; i < 4; i++) {
+        // Get 3 success award
+        let success_award = [];
+        let random_number = Math.floor(Math.random() * 3 + 0);
+        const award = awards[random_number];
+        if (award.quantity > 0) {
+            success_award.push({
+                lucky_id: awards[random_number].id,
+                award: awards[random_number].award
+            });
+            awards[random_number].quantity -= 1;
+        }
+
+        // Get 3 fail award
+        let fail_award = [];
+        for (let i = 0; i < 3; i++) {
             let random_number = Math.floor(Math.random() * 3 + 0);
             const award = awards[random_number];
             if (award.quantity > 0) {
-                random_award.push({
+                fail_award.push({
                     lucky_id: awards[random_number].id,
                     award: awards[random_number].award
                 });
@@ -18,14 +31,13 @@ exports.getAward = async(req, res, next) => {
             }
         }
 
-        const len = random_award.length;
-        const len_need = 4 - len;
+        const len = fail_award.length;
+        const len_need = 3 - len;
         if (len_need !== 0) {
             for (let j = 0; j < len_need; j++) {
                 const fin_award_index = awards.findIndex(award => award.quantity > 0);
-                console.log(fin_award_index);
                 if (fin_award_index !== -1) {
-                    random_award.push({
+                    fail_award.push({
                         lucky_id: awards[fin_award_index].id,
                         award: awards[fin_award_index].award
                     });
@@ -34,17 +46,19 @@ exports.getAward = async(req, res, next) => {
             }
         }
 
-        if (random_award.length === 4) {
-            res.status(200).json({
-                msg: 'Random awards success',
-                payload: random_award
-            });
-        } else {
-            res.status(401).json({
-                msg: 'Random awards fail',
-                payload: []
-            });
-        }
+        console.log(success_award, fail_award);
+
+        // if (fail_award.length === 4) {
+        //     res.status(200).json({
+        //         msg: 'Random awards success',
+        //         payload: fail_award
+        //     });
+        // } else {
+        //     res.status(401).json({
+        //         msg: 'Random awards fail',
+        //         payload: []
+        //     });
+        // }
     } catch (error) {
         console.log(error);
         res.status(401).json({

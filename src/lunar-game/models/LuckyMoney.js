@@ -20,6 +20,6 @@ module.exports = class LuckyMoney {
     }
 
     static substractQuantity(id) {
-        return db.execute('UPDATE lucky_money SET quantity = quantity - 1 where id = ?', [id])
+        return db.execute('UPDATE lucky_money SET remain = remain - 1 where id = ?', [id])
     }
 }
