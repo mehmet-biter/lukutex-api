@@ -4,23 +4,15 @@ exports.fetchRanksByCompetitionId = async(req, res, next) => {
     const competition_id = req.params.competition_id;
     try {
         const ranks = await RanksModel.fetchRanksByCompetitionID(competition_id, 20);
-        const member_ids = Array.from(new Set(ranks[0].map(rank => rank.member_id)));
-
-        const newRanks = [];
-        ranks[0].forEach(rank => {
-            if (!member_ids.includes(rank.member_id)) {
-                newRanks.push(rank);
-            }
-        });
         res.status(200).json({
             msg: "Fetch ranks by competition id successfully.",
-            payload: newRanks
+            payload: ranks[0]
         })
     } catch (error) {
         console.log(error);
         res.status(404).json({
             msg: 'Fetch ranks by competition id failed',
-            payload: []
+            payload: [null]
         })
     }
 }
@@ -38,7 +30,7 @@ exports.fetchRanksByUid = async(req, res, next) => {
         console.log(error);
         res.status(404).json({
             msg: 'Fetch rank by uid failed',
-            payload: []
+            payload: [null]
         })
     }
 }
