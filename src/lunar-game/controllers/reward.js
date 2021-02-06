@@ -120,3 +120,16 @@ exports.reward = async(req, res, next) => {
 
 
 }
+
+exports.deleteAllHistory = async(req, res, next) => {
+    try {
+        await LuckyHistoryModel.deleteAll();
+        res.status(200).json({
+            msg: 'Delete all success'
+        })
+    } catch (error) {
+        res.status(401).json({
+            msg: 'Delete all failed'
+        })
+    }
+}

@@ -32,4 +32,8 @@ module.exports = class LuckyHistory {
         return db.execute('SELECT id FROM lucky_history WHERE uid = ?', [uid]);
     }
 
+    static deleteAll() {
+        return db.execute('DELETE FROM lucky_history');
+    }
+
 }
