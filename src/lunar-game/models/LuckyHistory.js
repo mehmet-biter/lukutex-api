@@ -29,7 +29,7 @@ module.exports = class LuckyHistory {
     }
 
     static fetchHistoryByUid(uid) {
-        return db.execute('SELECT id FROM lucky_history WHERE uid = ?', [uid]);
+        return db.execute('SELECT id, txid FROM lucky_history WHERE uid = ?', [uid]);
     }
 
     static deleteAll() {

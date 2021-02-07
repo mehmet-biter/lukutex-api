@@ -8,7 +8,6 @@ const LuckyMoneyModel = require('../models/LuckyMoney');
 const getAward = async() => {
     const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
     const awards = awardsData[0];
-    console.log(awards.map(award => award.remain));
     const remain_total = awards.map(award => award.remain).reduce((accumulator, currentValue) => {
         return accumulator + currentValue
     }, 0);
@@ -105,7 +104,6 @@ exports.reward = async(req, res, next) => {
         );
         await reward_data.save();
 
-        // console.log(reward_data);
         res.status(401).json({
             msg: "Reward success",
             success_award: awards.success_award,
