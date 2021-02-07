@@ -83,6 +83,9 @@ exports.reward = async(req, res, next) => {
         const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
         if (user_rewards[0].length >= 3) throw Error('User has only 3 reward');
 
+        const txids = user_rewards[0].map(reward => reward.txid);
+        if ([...txids].includes(txid)) throw Error('This txid used.');
+
         const awards = await getAward();
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
 
