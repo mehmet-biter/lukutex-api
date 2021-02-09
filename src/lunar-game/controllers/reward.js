@@ -4,6 +4,7 @@ const AccountsModel = require('../../../models/Accounts');
 const LuckyHistoryModel = require('../models/LuckyHistory');
 const LuckyAwardModel = require('../models/LuckyMoney');
 const LuckyMoneyModel = require('../models/LuckyMoney');
+const DepositeLotsModel = require('../models/DepositeLots');
 
 const getAward = async() => {
     const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
@@ -80,13 +81,16 @@ exports.reward = async(req, res, next) => {
 
         // Fetch history of user
         const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
-        if (user_rewards[0].length >= 3) throw Error('User has only 3 reward');
+        if (user_rewards[0].length >= 3) throw Error(uid + ' User has only 3 reward');
 
         const txids = user_rewards[0].map(reward => reward.txid);
-        if ([...txids].includes(txid)) throw Error('This txid used.');
+        if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
 
         const awards = await getAward();
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
+
+        const balance = await AccountsModel.getBalanceUserByCurrencyID(member[0][0].id, 'usdt');
+        if (!(balance[0] && balance[0][0])) throw Error(uid + ' User not have usdt balance');
 
         // plus balance usdt
         await AccountsModel.plusBalance(member[0][0].id, 'usdt', awards.success_award.award);
@@ -104,13 +108,15 @@ exports.reward = async(req, res, next) => {
         );
         await reward_data.save();
 
+        await DepositeLotsModel.updateState(txid);
+
         res.status(401).json({
             msg: "Reward success",
             success_award: awards.success_award,
             fail_award: awards.fail_award
         });
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         res.status(401).json({
             msg: "Reward failed",
             success_award: {},
