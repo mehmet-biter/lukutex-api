@@ -82,12 +82,12 @@ exports.reward = async(req, res, next) => {
         const member = await MembersModel.getMemberID(uid);
         if (!(member[0] && member[0][0])) throw Error('Incorrect UID');
 
-        // // Fetch history of user
-        // const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
-        // if (user_rewards[0].length >= 3) throw Error(uid + ' has only 3 reward');
+        // Fetch history of user
+        const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
+        if (user_rewards[0].length >= 3) throw Error(uid + ' has only 3 reward');
 
-        // const txids = user_rewards[0].map(reward => reward.txid);
-        // if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
+        const txids = user_rewards[0].map(reward => reward.txid);
+        if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
 
         const awards = await getAward();
         console.log(awards);
