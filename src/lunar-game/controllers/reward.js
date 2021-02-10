@@ -16,14 +16,14 @@ const getAward = async() => {
 
     // Get 3 success award
     let success_award = {};
-    let random_number = Math.floor(Math.random() * 3 + 0);
-    const award = awards[random_number];
+    let success_random_number = Math.floor(Math.random() * 3 + 0);
+    const award = awards[success_random_number];
     if (award.quantity > 0) {
         success_award = {
-            lucky_id: awards[random_number].id,
-            award: awards[random_number].award
+            lucky_id: awards[success_random_number].id,
+            award: awards[success_random_number].award
         };
-        awards[random_number].quantity -= 1;
+        awards[success_random_number].quantity -= 1;
     } else {
         const fin_award_index = awards.findIndex(award => award.quantity > 0);
         if (fin_award_index !== -1) {
@@ -38,14 +38,14 @@ const getAward = async() => {
     // Get 3 fail award
     let fail_award = [];
     for (let i = 0; i < 3; i++) {
-        let random_number = Math.floor(Math.random() * 3 + 0);
-        const award = awards[random_number];
+        let fail_random_number = 3 - i;
+        const award = awards[fail_random_number];
         if (award.quantity > 0) {
             fail_award.push({
-                lucky_id: awards[random_number].id,
-                award: awards[random_number].award
+                lucky_id: awards[fail_random_number].id,
+                award: awards[fail_random_number].award
             });
-            awards[random_number].quantity -= 1;
+            awards[fail_random_number].quantity -= 1;
         }
     }
 
@@ -53,7 +53,7 @@ const getAward = async() => {
     const len_need = 3 - len;
     if (len_need !== 0) {
         for (let j = 0; j < len_need; j++) {
-            const fin_award_index = awards.findIndex(award => award.quantity > 0);
+            const fin_award_index = awards.reverse().findIndex(award => award.quantity > 0);
             if (fin_award_index !== -1) {
                 fail_award.push({
                     lucky_id: awards[fin_award_index].id,
@@ -81,7 +81,7 @@ exports.reward = async(req, res, next) => {
 
         // Fetch history of user
         const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
-        if (user_rewards[0].length >= 3) throw Error(uid + ' User has only 3 reward');
+        if (user_rewards[0].length >= 3) throw Error(uid + ' has only 3 reward');
 
         const txids = user_rewards[0].map(reward => reward.txid);
         if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
@@ -90,7 +90,7 @@ exports.reward = async(req, res, next) => {
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
 
         const balance = await AccountsModel.getBalanceUserByCurrencyID(member[0][0].id, 'usdt');
-        if (!(balance[0] && balance[0][0])) throw Error(uid + ' User not have usdt balance');
+        if (!(balance[0] && balance[0][0])) throw Error(uid + ' not have usdt balance');
 
         // plus balance usdt
         await AccountsModel.plusBalance(member[0][0].id, 'usdt', awards.success_award.award);
