@@ -9,6 +9,7 @@ const DepositeLotsModel = require('../models/DepositeLots');
 const getAward = async() => {
     const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
     const awards = awardsData[0];
+    console.log(awards);
     const remain_total = awards.map(award => award.remain).reduce((accumulator, currentValue) => {
         return accumulator + currentValue
     }, 0);
@@ -17,21 +18,23 @@ const getAward = async() => {
     // Get 3 success award
     let success_award = {};
     let success_random_number = Math.floor(Math.random() * 3 + 0);
+    console.log(success_random_number);
     const award = awards[success_random_number];
-    if (award.quantity > 0) {
+    if (award.remain > 0) {
         success_award = {
             lucky_id: awards[success_random_number].id,
             award: awards[success_random_number].award
         };
-        awards[success_random_number].quantity -= 1;
+        console.log(success_award);
+        awards[success_random_number].remain -= 1;
     } else {
-        const fin_award_index = awards.findIndex(award => award.quantity > 0);
+        const fin_award_index = awards.findIndex(award => award.remain > 0);
         if (fin_award_index !== -1) {
             success_award = {
                 lucky_id: awards[fin_award_index].id,
                 award: awards[fin_award_index].award
             };
-            awards[fin_award_index].quantity -= 1;
+            awards[fin_award_index].remain -= 1;
         }
     }
 
@@ -40,12 +43,12 @@ const getAward = async() => {
     for (let i = 0; i < 3; i++) {
         let fail_random_number = 3 - i;
         const award = awards[fail_random_number];
-        if (award.quantity > 0) {
+        if (award.remain > 0) {
             fail_award.push({
                 lucky_id: awards[fail_random_number].id,
                 award: awards[fail_random_number].award
             });
-            awards[fail_random_number].quantity -= 1;
+            awards[fail_random_number].remain -= 1;
         }
     }
 
@@ -53,13 +56,13 @@ const getAward = async() => {
     const len_need = 3 - len;
     if (len_need !== 0) {
         for (let j = 0; j < len_need; j++) {
-            const fin_award_index = awards.reverse().findIndex(award => award.quantity > 0);
+            const fin_award_index = awards.reverse().findIndex(award => award.remain > 0);
             if (fin_award_index !== -1) {
                 fail_award.push({
                     lucky_id: awards[fin_award_index].id,
                     award: awards[fin_award_index].award
                 });
-                awards[fin_award_index].quantity -= 1;
+                awards[fin_award_index].remain -= 1;
             }
         }
     }
@@ -87,16 +90,17 @@ exports.reward = async(req, res, next) => {
         if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
 
         const awards = await getAward();
+        console.log(awards);
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
 
         const balance = await AccountsModel.getBalanceUserByCurrencyID(member[0][0].id, 'usdt');
         if (!(balance[0] && balance[0][0])) throw Error(uid + ' not have usdt balance');
 
-        // plus balance usdt
-        await AccountsModel.plusBalance(member[0][0].id, 'usdt', awards.success_award.award);
-
         // substract quantity
         await LuckyAwardModel.substractQuantity(awards.success_award.lucky_id);
+
+        // plus balance usdt
+        await AccountsModel.plusBalance(member[0][0].id, 'usdt', awards.success_award.award);
 
         // save lucky history
         const reward_data = new LuckyHistoryModel(
