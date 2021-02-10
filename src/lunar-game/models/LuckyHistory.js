@@ -28,6 +28,10 @@ module.exports = class LuckyHistory {
         return db.execute('SELECT id, member_id, txid FROM lucky_history WHERE member_id = ?', [member_id]);
     }
 
+    static fetchRewardByTxid(txid) {
+        return db.execute('SELECT id, txid, reward FROM lucky_history WHERE txid = ?', [txid]);
+    }
+
     static fetchHistoryByUid(uid) {
         return db.execute('SELECT id, txid FROM lucky_history WHERE uid = ?', [uid]);
     }

@@ -110,7 +110,7 @@ exports.reward = async(req, res, next) => {
 
         await DepositeLotsModel.updateState(txid);
 
-        res.status(401).json({
+        res.status(200).json({
             msg: "Reward success",
             success_award: awards.success_award,
             fail_award: awards.fail_award
