@@ -6,10 +6,17 @@ const LuckyAwardModel = require('../models/LuckyMoney');
 const LuckyMoneyModel = require('../models/LuckyMoney');
 const DepositeLotsModel = require('../models/DepositeLots');
 
+const randomWithPercentage = () => {
+    let d = Math.random() * 100;
+    if ((d -= 50) < 0) return 0;
+    if ((d -= 30) < 0) return 1;
+    if ((d -= 15) < 0) return 2;
+    return 3;
+}
+
 const getAward = async() => {
     const awardsData = await LuckyMoneyModel.fetchAllLuckyMoney();
     const awards = awardsData[0];
-    console.log(awards);
     const remain_total = awards.map(award => award.remain).reduce((accumulator, currentValue) => {
         return accumulator + currentValue
     }, 0);
@@ -17,8 +24,7 @@ const getAward = async() => {
 
     // Get 3 success award
     let success_award = {};
-    let success_random_number = Math.floor(Math.random() * 3 + 0);
-    console.log(success_random_number);
+    let success_random_number = randomWithPercentage();
     const award = awards[success_random_number];
     if (award.remain > 0) {
         success_award = {
@@ -56,7 +62,7 @@ const getAward = async() => {
     const len_need = 3 - len;
     if (len_need !== 0) {
         for (let j = 0; j < len_need; j++) {
-            const fin_award_index = awards.reverse().findIndex(award => award.remain > 0);
+            const fin_award_index = awards.findIndex(award => award.remain > 0);
             if (fin_award_index !== -1) {
                 fail_award.push({
                     lucky_id: awards[fin_award_index].id,
@@ -90,7 +96,6 @@ exports.reward = async(req, res, next) => {
         if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
 
         const awards = await getAward();
-        console.log(awards);
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
 
         const balance = await AccountsModel.getBalanceUserByCurrencyID(member[0][0].id, 'usdt');
