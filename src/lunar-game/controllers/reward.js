@@ -90,16 +90,19 @@ exports.reward = async(req, res, next) => {
 
         // Fetch history of user
         const user_rewards = await LuckyHistoryModel.fetchHistoryByUid(uid);
-        if (user_rewards[0].length >= 3) throw Error(uid + ' has only 3 reward');
+        if (user_rewards[0].length >= 3) throw Error(uid + ' is only recieved 3 rewards');
 
         const txids = user_rewards[0].map(reward => reward.txid);
-        if ([...txids].includes(txid)) throw Error(uid + ' This txid used.');
+        if ([...txids].includes(txid)) throw Error(txid + ' This txid used.');
 
         const awards = await getAward();
         if (awards.success_award.lucky_id === undefined || awards.fail_award.length < 3) throw Error('Out of award');
 
+        const existTxid = await DepositeLotsModel.getByTxid(txid);
+        if (existTxid[0] && existTxid[0].length == 0) throw Error('Incorrect Txid');
+
         const balance = await AccountsModel.getBalanceUserByCurrencyID(member[0][0].id, 'usdt');
-        if (!(balance[0] && balance[0][0])) throw Error(uid + ' not have usdt balance');
+        if (!(balance[0] && balance[0][0])) throw Error(uid + ' not has USDT balance');
 
         // substract quantity
         await LuckyAwardModel.substractQuantity(awards.success_award.lucky_id);
