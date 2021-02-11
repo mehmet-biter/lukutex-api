@@ -24,25 +24,17 @@ const getAward = async() => {
 
     // Get 3 success award
     let success_award = {};
-    let success_random_number = randomWithPercentage();
-    const award = awards[success_random_number];
-    if (award.remain > 0) {
-        success_award = {
-            lucky_id: awards[success_random_number].id,
-            award: awards[success_random_number].award
-        };
-        console.log(success_award);
-        awards[success_random_number].remain -= 1;
-    } else {
-        const fin_award_index = awards.findIndex(award => award.remain > 0);
-        if (fin_award_index !== -1) {
-            success_award = {
-                lucky_id: awards[fin_award_index].id,
-                award: awards[fin_award_index].award
-            };
-            awards[fin_award_index].remain -= 1;
-        }
-    }
+    let success_random_number;
+
+    do {
+        success_random_number = randomWithPercentage();
+    } while (awards[success_random_number].remain == 0);
+
+    success_award = {
+        lucky_id: awards[success_random_number].id,
+        award: awards[success_random_number].award
+    };
+    awards[success_random_number].remain -= 1;
 
     // Get 3 fail award
     let fail_award = [];
