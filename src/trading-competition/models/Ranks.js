@@ -4,6 +4,7 @@ module.exports = class Ranks {
     constructor(
         competition_id,
         uid,
+        email,
         member_id,
         rank,
         volumn,
@@ -12,6 +13,7 @@ module.exports = class Ranks {
     ) {
         this.competition_id = competition_id;
         this.uid = uid;
+        this.email = email;
         this.member_id = member_id;
         this.rank = rank;
         this.volumn = volumn;
@@ -33,13 +35,6 @@ module.exports = class Ranks {
 
     static updateRank(competition_id, member_id, rank) {
         return db.execute('UPDATE ranks SET rank = ?, updated_at = ? WHERE competition_id = ? and member_id = ?', [rank, new Date(), competition_id, member_id]);
-    }
-
-    save() {
-        return db.execute(`
-            INSERT INTO ranks (competition_id, uid, member_id, rank, volumn, created_at, updated_at)
-            Values(?,?,?,?,?,?,?)
-        `, [this.competition_id, this.uid, this.member_id, this.rank, this.volumn, this.created_at, this.updated_at]);
     }
 
 }

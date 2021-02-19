@@ -7,9 +7,15 @@ exports.fetchRanksByCompetitionId = async(req, res, next) => {
         const member_ids = [];
         const newRanks = [];
         ranks[0].forEach(rank => {
+            const [username, mail_address] = rank.email.split('@');
+            const first_username = username.slice(0,3);
+            const newRank = {
+                ...rank,
+                email: first_username + '******@' + mail_address
+            }
             if (!member_ids.includes(rank.member_id)) {
                 member_ids.push(rank.member_id);
-                newRanks.push(rank);
+                newRanks.push(newRank);
             }
         });
         res.status(200).json({
