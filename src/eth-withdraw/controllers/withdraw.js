@@ -20,7 +20,7 @@ exports.withdrawEthFee = async(req, res, next) => {
             const currency = await CurrencyModel.fetchById(withdrawData.currency);
             if (!currency[0][0]) throw Error('Unavailable currency');
             const limit_price = NP.times(currency[0][0].gas_limit, currency[0][0].gas_price);
-            const divided = NP.divide(limit_price, 100000000);
+            const divided = NP.divide(limit_price, 1000000000);
             const fee = NP.plus(divided, 0.008);
             const withdrawEthFee = fee;
             const member = await MembersModel.getMemberID(uid);
@@ -96,7 +96,7 @@ exports.getFee = async(req, res, next) => {
         const currencies = await CurrencyModel.fetch();
         const fee_currencies = [...currencies[0]].map(currency => {
             const limit_price = NP.times(currency.gas_limit, currency.gas_price);
-            const divided = NP.divide(limit_price, 100000000);
+            const divided = NP.divide(limit_price, 1000000000);
             const fee = NP.plus(divided, 0.008);
             const new_currency = {
                 ...currency,
