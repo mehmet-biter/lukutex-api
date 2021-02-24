@@ -1,6 +1,6 @@
 const db = require('../database/peatio_production');
 
-module.exports = class Accounts {
+module.exports = class Deposits {
     constructor(
         member_id,
         currency_id,

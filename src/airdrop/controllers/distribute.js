@@ -6,6 +6,8 @@ const MembersModel = require("../../../models/Members");
 const AccountsModel = require("../../../models/Accounts");
 const DepositesModel = require("../../../models/Deposites");
 
+const geoip = require('geoip-lite');
+
 exports.distribute = async(req, res, next) => {
     const airdrop_id = +req.params.airdrop_id;
     console.log(+req.params.airdrop_id)
@@ -21,7 +23,8 @@ exports.distribute = async(req, res, next) => {
                 for await (let claim of claims[0]) {
                     const id = await MembersModel.getMemberID(claim.user_uid);
                     const user_ip = claim.user_ip;
-                    console.log(user_ip);
+                    const geo = geoip.lookup(user_ip);
+                    console.log(geo);
                     if (id[0][0]) {
                         const member_id = id[0][0].id;
                         console.log(member_id);
