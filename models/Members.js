@@ -24,7 +24,7 @@ module.exports = class Members {
     }
 
     static getMemberID(uid) {
-        return db.execute("SELECT id FROM members WHERE uid = ?", [uid]);
+        return db.execute("SELECT id, email FROM members WHERE uid = ?", [uid]);
     }
 
     static getUidByMemberID(member_id) {
