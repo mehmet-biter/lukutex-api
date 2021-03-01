@@ -29,6 +29,10 @@ module.exports = class Ranks {
         return db.execute('SELECT * FROM ranks WHERE competition_id = ? ORDER BY rank ASC LIMIT ?', [competition_id, quantity]);
     }
 
+    static fetchByCompetitionID(competition_id) {
+        return db.execute('SELECT * FROM ranks WHERE competition_id = ?', [competition_id]);
+    }
+
     static fetchRanksByUid(competiton_id, uid) {
         return db.execute('SELECT * FROM ranks WHERE competition_id = ? and uid = ?', [competiton_id, uid]);
     }

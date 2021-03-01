@@ -1,5 +1,5 @@
 {
-    "name": "lukutex-api",
+    "name": "cxexchange-api",
     "version": "1.0.0",
     "description": "",
     "main": "app.js",
@@ -10,14 +10,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/phuocvn/lukutex-api.git"
+        "url": "git+https://github.com/phuocvn/cxexchange-api.git"
     },
     "author": "Phuoc Huynh",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/phuocvn/lukutex-api/issues"
+        "url": "https://github.com/phuocvn/cxexchange-api/issues"
     },
-    "homepage": "https://github.com/phuocvn/lukutex-api#readme",
+    "homepage": "https://github.com/phuocvn/cxexchange-api#readme",
     "dependencies": {
         "axios": "^0.21.1",
         "body-parser": "^1.19.0",

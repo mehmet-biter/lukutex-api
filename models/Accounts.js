@@ -31,8 +31,8 @@ module.exports = class Accounts {
         return db.execute('SELECT balance FROM accounts where member_id = ? and currency_id = "eth"', [member_id]);
     }
 
-    static getAllMemberID() {
-        return db.execute("SELECT member_id FROM accounts");
+    static getAllMemberID(currency_id) {
+        return db.execute("SELECT member_id FROM accounts WHERE currency_id = ?", [currency_id]);
     }
 
     static getBalanceUserByCurrencyID(member_id, currency_id) {
