@@ -1,11 +1,11 @@
-# 1. LuKuTex API Document
+# LuKuTex API Document
 
 
-## 2. License
+## 1. License
 
 Please note, that LuKuTex API license only allows Commercial use of this component. Please contact us at bussiness@lukutex.com.
 
-## 3. Install dependencies
+## 2. Install dependencies
 
 ```bash
 $ npm install
@@ -16,7 +16,7 @@ or
 $ yarn install
 ```
 
-## 4. Run in developement mode
+## 3. Run in developement mode
 
 ```bash
 $ npm run dev
@@ -24,7 +24,7 @@ $ npm run dev
 This command will also start an api backend on localhost for helping development.
 Default local address: http://localhost:4000
 
-## 5. Configuration documentation
+## 4. Configuration documentation
 
 Configuration file is located in  `configs/env.js`
 
@@ -35,7 +35,7 @@ Configuration file is located in  `configs/env.js`
 | `MYSQL_ENV_USER`                | Username login into database `(ex: root)`  |
 | `MYSQL_ENV_PASSWORD`     | Password login into database `(ex: 1234)`
 
-## 6. Airdrop API Endpoint
+## 5. Airdrop API Endpoint
 | Method  | Endpoint   | Descriptition   |
 | ------------ | ------------ | ------------ |
 | GET  |  /airdrop/fetch | Fetch all airdrop  | 
