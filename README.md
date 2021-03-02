@@ -39,15 +39,37 @@ Configuration file is located in  `configs/env.js`
 ### 5.1. Fetch Airdrops
 | Method  | Endpoint   | Descriptition   |
 | ------------ | ------------ | ------------ |
-| GET  |  /airdrop/fetch | Fetch all airdrop  | 
-| GET  |  /airdrop/fetch/waiting/page=`{page}`&size=`{size}` | Upcoming airdrop  |
-| GET  |  /airdrop/fetch/opening/page=`{page}`&size=`{size}` | Ongoing airdrop  |
-| GET  |  /airdrop/fetch/delivering/page=`{page}`&size=`{size}` | Airdrop is waiting for distributing  |
-| GET  |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
-| GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
+| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch | Fetch all airdrop  | 
+| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/waiting/page=`{page}`&size=`{size}` | Upcoming airdrop  |
+| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch/opening/page=`{page}`&size=`{size}` | Ongoing airdrop  |
+| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/delivering/page=`{page}`&size=`{size}` | Airdrop is waiting for distributing  |
+| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
+| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
+
+> Request: `http://localhost/airdrop/fetch`
+> Response:
+```json
+ {
+      "msg": "Fetch successfully!",
+      "payload": [
+        {
+          "airdrop_id": 1,
+          "airdrop_name": "LuKuTex Exchange (~ 10 usd)",
+          "total_tokens": 1000000,
+          "tokens_per_claim": 100,
+          "remain_tokens": 767200,
+          "token_name": "LKT",
+          "max_participants": 10000,
+          "start_date": "2020-11-14T00:00:00.000Z",
+          "end_date": "2020-12-15T08:00:00.000Z",
+          "deliver_date": "2021-02-25T08:00:00.000Z"
+        }
+      ]
+    }
+```
 
 ### 5.2. Create New Airdrop
-####Method: POST
+#### Method: POST
 ```json
 {
 	"airdrop_name": "",
