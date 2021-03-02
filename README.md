@@ -39,14 +39,15 @@ Configuration file is located in  `configs/env.js`
 ### 5.1. Fetch Airdrops
 | Method  | Endpoint   | Descriptition   |
 | ------------ | ------------ | ------------ |
-| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch | Fetch all airdrop  | 
-| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/waiting/page=`{page}`&size=`{size}` | Upcoming airdrop  |
-| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch/opening/page=`{page}`&size=`{size}` | Ongoing airdrop  |
-| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/delivering/page=`{page}`&size=`{size}` | Airdrop is waiting for distributing  |
-| <span style="color: green; font-weight: bold">GET</span> |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
-| <span style="color: green; font-weight: bold">GET</span>  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
+| GET |  /airdrop/fetch | Fetch all airdrop  | 
+| GET  |  /airdrop/fetch/waiting/page=`{page}`&size=`{size}` | Upcoming airdrop  |
+| GET |  /airdrop/fetch/opening/page=`{page}`&size=`{size}` | Ongoing airdrop  |
+| GET  |  /airdrop/fetch/delivering/page=`{page}`&size=`{size}` | Airdrop is waiting for distributing  |
+| GET |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
+| GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
 
 > Request: `http://localhost/airdrop/fetch`
+
 > Response:
 ```json
  {
