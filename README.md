@@ -10,11 +10,6 @@ Please note, that LuKuTex API license only allows Commercial use of this compone
 ```bash
 $ npm install
 ```
-or
-
-```bash
-$ yarn install
-```
 
 ## 3. Run in developement mode
 
