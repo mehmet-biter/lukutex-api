@@ -46,7 +46,7 @@ Configuration file is located in  `configs/env.js`
 | GET |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
 | GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
 
-> Request: `http://localhost/airdrop/fetch`
+> Request: `http://localhost:4000/airdrop/fetch`
 
 > Response:
 ```json
