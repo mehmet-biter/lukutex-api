@@ -1,11 +1,11 @@
-# LuKuTex API Document
+# 1. LuKuTex API Document
 
 
-## License
+## 2. License
 
 Please note, that LuKuTex API license only allows Commercial use of this component. Please contact us at bussiness@lukutex.com.
 
-## Install dependencies
+## 3. Install dependencies
 
 ```bash
 $ npm install
@@ -16,7 +16,7 @@ or
 $ yarn install
 ```
 
-## Run in developement mode
+## 4. Run in developement mode
 
 ```bash
 $ npm run dev
@@ -24,7 +24,7 @@ $ npm run dev
 This command will also start an api backend on localhost for helping development.
 Default local address: http://localhost:4000
 
-## Configuration documentation
+## 5. Configuration documentation
 
 Configuration file is located in  `configs/env.js`
 
@@ -35,13 +35,15 @@ Configuration file is located in  `configs/env.js`
 | `MYSQL_ENV_USER`                | Username login into database `(ex: root)`  |
 | `MYSQL_ENV_PASSWORD`     | Password login into database `(ex: 1234)`
 
-## Airdrop API Endpoint
+## 6. Airdrop API Endpoint
 | Method  | Endpoint   | Descriptition   |
 | ------------ | ------------ | ------------ |
 | GET  |  /airdrop/fetch | Fetch all airdrop  | 
-| GET  |  /airdrop/waiting/page={page}&size={size} |   |
-| GET  |  /airdrop/fetch |   |
-| GET  | /airdrop/fetch  |   |
+| GET  |  /airdrop/fetch/waiting/page=`{page}`&size=`{size}` | Upcoming airdrop  |
+| GET  |  /airdrop/fetch/opening/page=`{page}`&size=`{size}` | Ongoing airdrop  |
+| GET  |  /airdrop/fetch/delivering/page=`{page}`&size=`{size}` | Airdrop is waiting for distributing  |
+| GET  |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
+| GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
 
 
 ## Happy trading with OpenDAX BaseApp UI
@@ -62,3 +64,4 @@ Contact us if you'd like to purchase a commercial license.
 If you would like to fork, and modify this UI to create a BaseApp theme, we would be happy to setup a partnership program and sell your work provided a revenue sharing.
 
 Made with love from Paris and Kiev.
+
