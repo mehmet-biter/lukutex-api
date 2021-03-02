@@ -5,7 +5,7 @@ const MYSQL_ENV_NAME = "Lunar Game Production";
 const MYSQL_ENV_DATABASE = "lunar_game";
 
 const MYSQL_ENV_HOST = process.env.DATABASE_HOST || _ENV_CONFIG.MYSQL_ENV_HOST;
-const MYSQL_ENV_USER = process.env.DATABASE_USERNAME || _ENV_CONFIG.DATABASE_USERNAME;
+const MYSQL_ENV_USER = process.env.DATABASE_USERNAME || _ENV_CONFIG.MYSQL_ENV_USERNAME;
 const MYSQL_ENV_PASSWORD = process.env.DATABASE_PASSWORD || _ENV_CONFIG.MYSQL_ENV_PASSWORD;
 const pool = mysql.createPool({
     namedPlaceholders: MYSQL_ENV_NAME,
