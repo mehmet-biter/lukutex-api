@@ -36,6 +36,7 @@ Configuration file is located in  `configs/env.js`
 | `MYSQL_ENV_PASSWORD`     | Password login into database `(ex: 1234)`
 
 ## 5. Airdrop API Endpoint
+### 5.1. Fetch Airdrops
 | Method  | Endpoint   | Descriptition   |
 | ------------ | ------------ | ------------ |
 | GET  |  /airdrop/fetch | Fetch all airdrop  | 
@@ -45,12 +46,22 @@ Configuration file is located in  `configs/env.js`
 | GET  |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
 | GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
 
+### 5.2. Create New Airdrop
+####Method: POST
+```json
+{
+	"airdrop_name": "",
+	"total_tokens": 0,
+	"tokens_per_claim": 0,
+	"remain_tokens": 0,
+	"token_name": "",
+	"max_participants": 0,
+	"start_date": "2021-01-01 00:00:00",
+	"end_date": "2021-01-01 00:00:00",
+	"deliver_date": "2021-01-01 00:00:00"
+}
+```
 
-## Happy trading with OpenDAX BaseApp UI
-
-If you have designed something beautiful with it, we would love to see it!
-
-And if you have any comments, feedback and suggestions - we are happy to hear from you here at GitHub or at https://openware.com
 
 ## Licensing
 
@@ -61,7 +72,7 @@ Contact us if you'd like to purchase a commercial license.
 
 ## Partners
 
-If you would like to fork, and modify this UI to create a BaseApp theme, we would be happy to setup a partnership program and sell your work provided a revenue sharing.
+If you would like to fork, we would be happy to setup a partnership program and sell your work provided a revenue sharing.
 
-Made with love from Paris and Kiev.
+Made with love from LuKuTex.
 
