@@ -99,6 +99,39 @@ Configuration file is located in  `configs/env.js`
 }
 ```
 
+## 6. Withdraw With ETH Fee
+### 6.1. GET ETH Fee
+| Method  | Endpoint   |
+| ------------ | ------------ |
+| GET |  /withdraw/get/eth_fee |
+> Request: `http://localhost:4000/withdraw/get/eth_fee`
+
+> Response:
+```json
+{
+  "msg": "Get ETH fee success",
+  "payload": [
+    {
+      "currency_id": "cap",
+      "gas_limit": 70000,
+      "gas_price": 92,
+      "fee": 0.01644
+    },
+    {
+      "currency_id": "dfe",
+      "gas_limit": 70000,
+      "gas_price": 92,
+      "fee": 0.01644
+    },
+    {
+      "currency_id": "dogy",
+      "gas_limit": 70000,
+      "gas_price": 92,
+      "fee": 0.01644
+    }
+  ]
+}
+```
 
 ## Licensing
 
