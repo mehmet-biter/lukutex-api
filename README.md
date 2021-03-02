@@ -80,6 +80,25 @@ Configuration file is located in  `configs/env.js`
 }
 ```
 
+### 5.3 Fetch Claims
+| Method  | Endpoint   | Descriptition   |
+| ------------ | ------------ | ------------ |
+| GET |  /claim//fetch/all/airdrop_id=`{airdrop_id}` | Fetch all claims  | 
+| GET  |  /claim/getByAid/`{id}` |     Fetch claims by airdrop id|
+
+### 5.4.  Claim Airdrop
+#### Method: POST
+```json
+{
+	"user_uid": "",
+	"email_user": "",
+	"facebook_id": "",
+	"twitter_username": "",
+	"telegram_username": "",
+	"user_ip": ""
+}
+```
+
 
 ## Licensing
 
@@ -93,4 +112,3 @@ Contact us if you'd like to purchase a commercial license.
 If you would like to fork, we would be happy to setup a partnership program and sell your work provided a revenue sharing.
 
 Made with love from LuKuTex.
-
