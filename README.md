@@ -41,9 +41,9 @@ Configuration file is located in  `configs/env.js`
 | GET |  /airdrop/fetch/delivered/page=`{page}`&size=`{size}` | Airdrop was distributed  |
 | GET  |  /airdrop/fetch/`{id}` |     Fetch airdrop with airdrop id|
 
-> Request: `http://localhost:4000/airdrop/fetch`
+> Request GET: `http://localhost:4000/airdrop/fetch`
 
-> Response:
+> Response Example:
 ```json
  {
       "msg": "Fetch successfully!",
@@ -87,7 +87,10 @@ Configuration file is located in  `configs/env.js`
 | GET  |  /claim/getByAid/`{id}` |     Fetch claims by airdrop id|
 
 ### 5.4.  Claim Airdrop
-#### Method: POST
+#### Method: POST: /claim/airdrop_id=`airdrop_id`
+* Request POST: http://localhost:4000/claim/airdrop_id=1
+
+* Request Body Example:
 ```json
 {
 	"user_uid": "",
@@ -100,13 +103,24 @@ Configuration file is located in  `configs/env.js`
 ```
 
 ## 6. Withdraw With ETH Fee
-### 6.1. GET ETH Fee
-| Method  | Endpoint   |
-| ------------ | ------------ |
-| GET |  /withdraw/get/eth_fee |
-> Request: `http://localhost:4000/withdraw/get/eth_fee`
+### 6.1. Withdraw
+#### Method: POST /withdraw
+* Request POST: http://localhost:4000/withdraw
 
-> Response:
+* Request Body Example:
+```json
+{
+	"uid": "ID2021",
+	"currency": "eth";
+	"amount": "0.2";
+}
+```
+
+### 6.2. Get ETH Fee
+#### Method: GET /withdraw/get/eth_fee
+* Request GET: http://localhost:4000/withdraw/get/eth_fee
+
+* Response Example:
 ```json
 {
   "msg": "Get ETH fee success",
@@ -114,22 +128,44 @@ Configuration file is located in  `configs/env.js`
     {
       "currency_id": "cap",
       "gas_limit": 70000,
-      "gas_price": 92,
-      "fee": 0.01644
+      "gas_price": 84,
+      "fee": 0.01588
     },
     {
       "currency_id": "dfe",
       "gas_limit": 70000,
-      "gas_price": 92,
-      "fee": 0.01644
+      "gas_price": 84,
+      "fee": 0.01588
     },
-    {
-      "currency_id": "dogy",
-      "gas_limit": 70000,
-      "gas_price": 92,
-      "fee": 0.01644
-    }
   ]
+}
+```
+## 7. Events
+#### Method: GET /events/fetch
+* Request GET: http://localhost:4000/events/fetch
+
+* Response Example:
+```json
+{
+	  "msg": "Fetch event list successfully",
+	  "events": [
+		{
+		  "event_id": 12,
+		  "event_name": "Whitex Listing",
+		  "description": "Whitex Listing",
+		  "image_link": "https://1.bp.blogspot.com/-PtrlDeReidA/YDXFVelN9EI/AAAAAAAAAR8/VU_FUtTrtW8-YsStxPAsroxKfAR8OClQACLcBGAsYHQ/s320/Whitex%2Blisting.png",
+		  "ref_link": "https://t.me/lukutex_office/12824",
+		  "created_at": "2021-02-24T05:22:08.000Z"
+		},
+		{
+		  "event_id": 11,
+		  "event_name": "NIA Trade Competition",
+		  "description": "Event starts in  5th Febuary 2021 - 8:00 Singapore Time",
+		  "image_link": "https://1.bp.blogspot.com/-jJMl-DvAvqw/YC5mpIJ1c7I/AAAAAAAAAQY/TS5wYhOXW1YmsmXDJ7W-wIe-8o84l6BZwCLcBGAsYHQ/s320/photo_2021-02-18_20-06-41.jpg",
+		  "ref_link": "https://t.me/lukutex_office/12570",
+		  "created_at": "2021-02-10T05:22:08.000Z"
+		}
+	]
 }
 ```
 
