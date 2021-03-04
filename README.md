@@ -111,8 +111,8 @@ Configuration file is located in  `configs/env.js`
 ```json
 {
 	"uid": "ID2021",
-	"currency": "eth";
-	"amount": "0.2";
+	"currency": "eth",
+	"amount": "0.2"
 }
 ```
 
