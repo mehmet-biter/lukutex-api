@@ -177,8 +177,10 @@ Configuration file is located in  `configs/env.js`
 | GET  |  /ieo/fetch/upcoming | Upcoming IEOs  |
 | GET  |  /ieo/fetch/ongoing | Ongoing IEOs  |
 | GET  |  /ieo/fetch/ended | Ended IEOs  |
-| GET  |  /ieo/fetch/active | Active IEOs  |
-
+| GET  |  /ieo/fetch/ieo_id=`ieo_id` | Fetch IEO by `ieo id`  |
+| GET  |  /total-buyers/ieo_id=`ieo_id` | Fetch number of users buyed ieo by `ieo id`  |
+| GET  |  /fetch/buyers/ieo_id=`ieo_id&`page=`page`&size=`size` | Fetch user_lists buyed ieo by `ieo id` and (`page`: page number of table, `size`: number of row table) |
+| GET  |  /fetch/buy/uid=:uid/ieo_id=`ieo_id&`page=`page`&size=`size` | Fetch ieo list of user buyed by `uid`, `ieo id` and (`page`: page number of table, `size`: number of row table) |
 
 ## Licensing
 
