@@ -169,6 +169,17 @@ Configuration file is located in  `configs/env.js`
 }
 ```
 
+## 8. IEO
+### 8.1. Fetch IEO List
+| Method  | Endpoint   | Descriptition   |
+| ------------ | ------------ | ------------ |
+| GET  |  /ieo/fetch/active | Active IEOs  |
+| GET  |  /ieo/fetch/upcoming | Upcoming IEOs  |
+| GET  |  /ieo/fetch/ongoing | Ongoing IEOs  |
+| GET  |  /ieo/fetch/ended | Ended IEOs  |
+| GET  |  /ieo/fetch/active | Active IEOs  |
+
+
 ## Licensing
 
 This code is open for helping private modification and performing customer demonstration, you can use it for raising capital.
