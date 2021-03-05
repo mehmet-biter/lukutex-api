@@ -182,6 +182,138 @@ Configuration file is located in  `configs/env.js`
 | GET  |  /fetch/buyers/ieo_id=`ieo_id&`page=`page`&size=`size` | Fetch user_lists buyed ieo by `ieo id` and (`page`: page number of table, `size`: number of row table) |
 | GET  |  /fetch/buy/uid=:uid/ieo_id=`ieo_id&`page=`page`&size=`size` | Fetch ieo list of user buyed by `uid`, `ieo id` and (`page`: page number of table, `size`: number of row table) |
 
+### 8.2. Buy IEO
+#### Method: POST /ieo/buy
+* Request POST: http://localhost:4000/ieo/buy
+
+* Request Body Example:
+```json
+{
+	"ieo_id": 1,
+	"uid": "ID2021",
+	"quantity": 2,
+	"total_purchase": 2.5,
+	"quote_currency": "swp"
+}
+```
+
+## 9. Trading Competition
+### 9.1. Fetch Competitions
+#### 9.1.1 All Competitions
+#### Method: GET /trading-competition/fetch/all
+* Request GET: http://localhost:4000/trading-competition/fetch/all
+
+* Request Response Example:
+```json
+{
+  "msg": "Fetch all competitions successfully.",
+  "payload": {
+    "ongoing": [
+      
+    ],
+    "upcoming": [
+      
+    ],
+    "ended": [
+      {
+        "id": 1,
+        "currency_id": "swp",
+        "currency_image": "https://1.bp.blogspot.com/-VUZkrfSymso/X9ntIoIQKRI/AAAAAAAAAMY/nuOBMbT17bIPVbpaf-kIkvr63nUbOpFCACLcBGAsYHQ/s0/logo3.png",
+        "total_prize": "2,000,000 SWP",
+        "market_ids": [
+          "swp/usdt",
+          "swp/eth"
+        ],
+        "next_update": "2021-02-28T00:20:03.000Z",
+        "start_date": "2021-02-02T00:00:00.000Z",
+        "end_date": "2021-02-28T00:00:00.000Z"
+      },
+      {
+        "id": 2,
+        "currency_id": "eoc",
+        "currency_image": "https://1.bp.blogspot.com/-BbLXUwuwytk/X8udCvLNJmI/AAAAAAAAALg/USim0MBN2-c8FeBNoqTwnMyZqwO075AqQCLcBGAsYHQ/s0/Asset%2B1.png",
+        "total_prize": "10,000 EOC",
+        "market_ids": [
+          "eoc/usdt",
+          "eoc/eth"
+        ],
+        "next_update": "2021-03-05T00:20:02.000Z",
+        "start_date": "2021-02-02T00:00:00.000Z",
+        "end_date": "2021-03-05T00:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+#### 9.1.2 Find competition
+#### Method: GET /competitions/fetch/competition_id=`competition_id`
+* Request GET: http://localhost:4000/competitions/fetch/competition_id=2
+
+* Request Response Example:
+```json
+{
+  "msg": "Fetch competition with id successfully.",
+  "payload": {
+    "id": 2,
+    "currency_id": "eoc",
+    "currency_image": "https://1.bp.blogspot.com/-BbLXUwuwytk/X8udCvLNJmI/AAAAAAAAALg/USim0MBN2-c8FeBNoqTwnMyZqwO075AqQCLcBGAsYHQ/s0/Asset%2B1.png",
+    "total_prize": "10,000 EOC",
+    "market_ids": [
+      "eoc/usdt",
+      "eoc/eth"
+    ],
+    "next_update": "2021-03-05T00:20:02.000Z",
+    "start_date": "2021-02-02T00:00:00.000Z",
+    "end_date": "2021-03-05T00:00:00.000Z"
+  }
+}
+```
+
+### 9.2. Fetch Ranks of Competition By Competition ID
+#### Method: GET /ranks/fetch/competition_id=`competition_id`
+* Request GET: http://localhost:4000/ranks/fetch/competition_id=1
+
+* Request Response Example:
+```json
+{
+  "msg": "Fetch ranks by competition id successfully.",
+  "payload": [
+    {
+      "id": 187,
+      "competition_id": 1,
+      "uid": "ID1E01EF",
+      "email": "kob******@gmail.com",
+      "member_id": 6,
+      "rank": 1,
+      "volumn": "4179779.0662999990000000",
+      "created_at": "2021-02-19T12:31:02.000Z",
+      "updated_at": "2021-02-28T00:00:02.000Z"
+    },
+    {
+      "id": 197,
+      "competition_id": 1,
+      "uid": "ID6C3136",
+      "email": "tes******@gmail.com",
+      "member_id": 3,
+      "rank": 2,
+      "volumn": "4080025.0463999985000000",
+      "created_at": "2021-02-19T12:31:02.000Z",
+      "updated_at": "2021-02-28T00:00:02.000Z"
+    },
+    {
+      "id": 195,
+      "competition_id": 1,
+      "uid": "ID021FE5",
+      "email": "gan******@gmail.com",
+      "member_id": 5,
+      "rank": 3,
+      "volumn": "80550.7591000000100000",
+      "created_at": "2021-02-19T12:31:02.000Z",
+      "updated_at": "2021-02-28T00:00:02.000Z"
+    }
+  ]
+}
+```
 ## Licensing
 
 This code is open for helping private modification and performing customer demonstration, you can use it for raising capital.
