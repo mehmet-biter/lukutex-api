@@ -2,7 +2,6 @@ const db = require('../database/peatio_production');
 
 module.exports = class Accounts {
     constructor(
-        id,
         member_id,
         currency_id,
         balance,
@@ -10,13 +9,16 @@ module.exports = class Accounts {
         created_at,
         updated_at
     ) {
-        this.id = id;
         this.member_id = member_id;
         this.currency_id = currency_id;
         this.balance = balance;
         this.locked = locked;
         this.created_at = created_at;
         this.updated_at = updated_at;
+    }
+
+    save() {
+        return db.execute("INSERT INTO accounts(member_id,currency_id,balance,locked,created_at,updated_at) Values(?,?,?,?,?,?)", [this.member_id, this.currency_id, this.balance, this.locked, this.created_at, this.updated_at]);
     }
 
     static updateBalance(member_id, currency_id, bonus) {

@@ -33,10 +33,16 @@ const getMemberIDByUid = async(uid) => {
 }
 const getBaseBalanceAccount = async(memberID, base_currency) => {
     // Get buy balance of user
-    const baseBalanceAccount = await AccountsModel.getBalanceUserByCurrencyID(memberID, base_currency);
-    if (baseBalanceAccount[0].length) {
-        return Number(baseBalanceAccount[0][0].balance);
-    } else {
+    try {
+        const baseBalanceAccount = await AccountsModel.getBalanceUserByCurrencyID(memberID, base_currency);
+        if (baseBalanceAccount[0].length === 0) {
+            const newAccount = new AccountsModel(memberID, base_currency, 0, 0, new Date(), new Date());
+            await newAccount.save();
+            return 0;
+        } else {
+            return Number(baseBalanceAccount[0][0].balance);
+        }
+    } catch (error) {
         // Do something if not have buy & purchase balance
         throw new Error(`You don\'t have ${String(base_currency).toUpperCase()} wallet. Please generate it before buying.`);
     }
