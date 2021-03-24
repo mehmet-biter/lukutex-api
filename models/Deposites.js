@@ -17,6 +17,10 @@ module.exports = class Deposits {
         this.completed_at = completed_at;
     }
 
+    static fetch_all() {
+        return db.execute("SELECT member_id, sum(amount) as total FROM deposits group by member_id");
+    }
+
     static fetchByMemberIdAndDate(member_id, start_date, end_date) {
         return db.execute(`
         SELECT 

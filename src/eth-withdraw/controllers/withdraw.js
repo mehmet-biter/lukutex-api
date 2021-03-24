@@ -10,7 +10,45 @@ const EthWithrawsModel = require("../models/EthWithdraws");
 const HistoryModel = require("../models/History");
 const FailedWithdrawsModel = require("../models/FailedWithdraws");
 const CurrencyModel = require('../models/Currency');
+const GasPriceModel = require("../models/GasPrice");
 
+const DEFAULT_GAS_PRICE_TYPE = 3; // 1: low, 2: normal, 3: high
+const GAS_NUMBER = 1000000000; // 10^9
+const GAS_POINT = 0.01; // admin set number
+
+exports.getFee = async(req, res, next) => {
+    console.log("Get fee");
+    try {
+        const currencies = await CurrencyModel.fetch();
+        const gasPrice = await GasPriceModel.fetchPriceByID(DEFAULT_GAS_PRICE_TYPE);
+
+        if (!currencies[0]) throw Error("Can not fetch currencies");
+        if (!gasPrice[0]) throw Error("Can not get gas price.");
+
+        const gas_price = gasPrice[0][0].price;
+        const fee_currencies = [...currencies[0]].map(currency => {
+            const limit_price = NP.times(currency.gas_limit, gas_price);
+            const divided = NP.divide(limit_price, GAS_NUMBER);
+            const fee = NP.plus(divided, GAS_POINT);
+            const new_currency = {
+                currency_id: currency.currency_id,
+                fee: fee
+            };
+            return new_currency;
+        })
+
+        res.status(200).json({
+            msg: "Get ETH fee success",
+            payload: fee_currencies
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({
+            msg: "Get ETH fee failed",
+            payload: null,
+        });
+    }
+};
 
 exports.withdrawEthFee = async(req, res, next) => {
     setTimeout(async() => {
@@ -19,9 +57,15 @@ exports.withdrawEthFee = async(req, res, next) => {
             const uid = withdrawData.uid;
             const currency = await CurrencyModel.fetchById(withdrawData.currency);
             if (!currency[0][0]) throw Error('Unavailable currency');
-            const limit_price = NP.times(currency[0][0].gas_limit, currency[0][0].gas_price);
-            const divided = NP.divide(limit_price, 1000000000);
-            const fee = NP.plus(divided, 0.01);
+
+            // GET GAS PRICE
+            const gasPrice = await GasPriceModel.fetchPriceByID(DEFAULT_GAS_PRICE_TYPE);
+            if (!gasPrice[0]) throw Error("Can not get gas price.");
+            const gas_price = gasPrice[0][0].price;
+
+            const limit_price = NP.times(currency[0][0].gas_limit, gas_price);
+            const divided = NP.divide(limit_price, GAS_NUMBER);
+            const fee = NP.plus(divided, GAS_POINT);
             const withdrawEthFee = fee;
             const member = await MembersModel.getMemberID(uid);
             if (!member[0][0]) throw Error('Incorrect uid');
@@ -88,32 +132,4 @@ exports.withdrawEthFee = async(req, res, next) => {
             });
         }
     }, 5000);
-};
-
-exports.getFee = async(req, res, next) => {
-
-    try {
-        const currencies = await CurrencyModel.fetch();
-        const fee_currencies = [...currencies[0]].map(currency => {
-            const limit_price = NP.times(currency.gas_limit, currency.gas_price);
-            const divided = NP.divide(limit_price, 1000000000);
-            const fee = NP.plus(divided, 0.01);
-            const new_currency = {
-                ...currency,
-                fee: fee
-            };
-            return new_currency;
-        })
-
-        res.status(200).json({
-            msg: "Get ETH fee success",
-            payload: fee_currencies
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(404).json({
-            msg: "Get ETH fee failed",
-            payload: null,
-        });
-    }
 };

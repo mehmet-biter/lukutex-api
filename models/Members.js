@@ -23,6 +23,10 @@ module.exports = class Members {
         this.updated_at = updated_at;
     }
 
+    static fetch_all() {
+        return db.execute("SELECT id, uid, email, role FROM members");
+    }
+
     static getMemberID(uid) {
         return db.execute("SELECT id, email FROM members WHERE uid = ?", [uid]);
     }
